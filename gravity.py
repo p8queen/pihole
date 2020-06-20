@@ -7,9 +7,13 @@ with open('regex.list','r') as f:
     domains = f.read().splitlines()
 
 for c in domains:
-    d = '*'+c+'*'
-    if len(d)>3: print(d)
+    if len(c)>3:
+        d = (3,'*'+c+'*')
+        sql = """INSERT INTO domainlist(type,domain) VALUES(?,?)"""
+        cur.execute(sql,d)
+        db.commit()
 
+cur.close()
 print('--end---')
 
 
